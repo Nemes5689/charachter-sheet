@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Icarus — Corvian Barbarian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   CORVIAN BARBARIAN — ICARUS
+   Aesthetic: Dark avian gothic, parchment & ash,
+   feather textures, blood-ink, brutal elegance
+═══════════════════════════════════════════════ */
+
+:root {
+  --bg:        #0d0b08;
+  --bg2:       #131109;
+  --bg3:       #1a1712;
+  --parch:     #f0e8d5;
+  --parch2:    #e8dcc5;
+  --parch3:    #d4c9a8;
+  --gold:      #c8a84b;
+  --gold2:     #e8c96a;
+  --gold3:     #a07828;
+  --blood:     #8b1a1a;
+  --blood2:    #c42a2a;
+  --ash:       #4a4538;
+  --ash2:      #2e2b22;
+  --feather:   #1e1c16;
+  --rune:      #6b8f6b;
+  --border:    #3a3020;
+  --border2:   #5a4a28;
+  --text:      #e8dcc5;
+  --text-dim:  #a09070;
+  --text-dark: #2a2018;
+  --prof-col:  #7ab87a;
+  --rage-col:  #c84040;
+  --radius:    6px;
+  --shadow:    0 4px 24px rgba(0,0,0,0.7);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Feather texture via CSS */
+  background-image:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(139,26,26,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 20% 100%, rgba(200,168,75,0.04) 0%, transparent 50%);
+}
+
+/* ── NOISE GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── LAYOUT WRAPPER ── */
+.sheet {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── PANEL BASE ── */
+.panel {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200,168,75,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.panel-header {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  background: var(--ash2);
+  border-bottom: 1px solid var(--border);
+  padding: 4px 10px;
+}
+
+.panel-body {
+  padding: 10px;
+}
+
+/* ── HEADER BAND ── */
+.header-band {
+  background: linear-gradient(135deg, #0a0806 0%, #1a1510 40%, #0d0b08 100%);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(200,168,75,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-band::after {
+  content: '☽';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  color: rgba(200,168,75,0.05);
+  pointer-events: none;
+}
+
+.char-name-block { flex: 1; }
+
+.char-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold2);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 30px rgba(200,168,75,0.4);
+}
+
+.char-meta {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.meta-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.meta-value {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.85rem;
+  color: var(--parch2);
+  font-style: italic;
+}
+
+.header-stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.stat-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ash2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  min-width: 60px;
+}
+
+.stat-bubble.hp { border-color: var(--blood); }
+.stat-bubble.ac { border-color: var(--gold3); }
+
+.bubble-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+.bubble-main {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bubble-main.hp-val { color: var(--blood2); }
+.bubble-main.ac-val { color: var(--gold2); }
+.bubble-main.init-val { color: #8ab8e8; }
+.bubble-main.spd-val { color: #8ab87a; }
+
+.bubble-sub {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  margin-top: 1px;
+}
+
+/* HP with editable current */
+.hp-inputs {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.hp-current {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--blood2);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--blood);
+  width: 52px;
+  text-align: center;
+  outline: none;
+  line-height: 1;
+}
+
+.hp-sep { color: var(--text-dim); font-size: 0.9rem; }
+.hp-max-txt { font-size: 0.85rem; color: var(--text-dim); }
+
+/* ── RAGE TRACKER ── */
+.rage-tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(139,26,26,0.1);
+  border: 1px solid rgba(139,26,26,0.4);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+}
+
+.rage-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ff6060;
+}
+
+.rage-pips {
+  display: flex;
+  gap: 5px;
+}
+
+.rage-pip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--blood);
+  background: var(--ash2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+.rage-pip.used { background: var(--blood); border-color: var(--blood2); }
+.rage-pip.used::after { content: '✕'; color: var(--parch2); }
+.rage-pip:hover { border-color: var(--blood2); transform: scale(1.1); }
+
+.rage-dmg {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  color: var(--blood2);
+}
+
+/* ── ABILITY SCORES ── */
+.abilities-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.ability-card {
+  background: var(--ash2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px 6px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.ability-card:hover { border-color: var(--border2); }
+
+.ability-card.has-prof { border-color: rgba(122,184,122,0.4); }
+
+.ability-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 4px;
+}
+
+.ability-mod {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--parch);
+  line-height: 1;
+}
+
+.ability-score {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+  border-top: 1px solid var(--border);
+  padding-top: 3px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── SAVES & SKILLS ── */
+.saves-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.skill-list { display: flex; flex-direction: column; gap: 2px; }
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.skill-row:hover { background: rgba(200,168,75,0.05); }
+
+.skill-pip {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-dim);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.skill-pip.prof { background: var(--prof-col); border-color: var(--prof-col); }
+.skill-pip.half { background: transparent; border-color: var(--prof-col); position: relative; }
+.skill-pip.half::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: var(--prof-col); border-radius: 0 0 50% 50%; }
+
+.skill-bonus {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--parch2);
+  min-width: 26px;
+  text-align: right;
+}
+
+.skill-bonus.pos { color: var(--prof-col); }
+
+.skill-name {
+  font-size: 0.8rem;
+  color: var(--text);
+  flex: 1;
+}
+
+.skill-ability {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ── SECTION HEADING ── */
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  padding: 4px 0 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::before {
+  content: '◆';
+  color: var(--blood);
+  font-size: 0.5rem;
+}
+
+/* ── COMBAT STATS ROW ── */
+.combat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.combat-stat {
+  background: var(--ash2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.combat-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--parch);
+}
+
+.combat-lbl {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ── WEAPONS TABLE ── */
+.weapons-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.weapons-table thead tr {
+  background: var(--ash2);
+}
+
+.weapons-table th {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.weapons-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid rgba(58,48,32,0.4);
+  color: var(--parch2);
+  vertical-align: top;
+}
+
+.weapons-table tr:last-child td { border-bottom: none; }
+.weapons-table tr:hover td { background: rgba(200,168,75,0.04); }
+
+.weapon-name { font-weight: 600; color: var(--parch); }
+.weapon-atk { font-family: 'Cinzel', serif; color: var(--prof-col); }
+.weapon-dmg { font-family: 'Cinzel', serif; color: var(--parch2); }
+.weapon-note { font-size: 0.72rem; color: var(--text-dim); font-style: italic; }
+
+/* ── FEATURES ── */
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feature-item {
+  background: var(--ash2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--border2);
+  overflow: hidden;
+  transition: border-left-color 0.2s;
+}
+
+.feature-item.rage-feat { border-left-color: var(--blood); }
+.feature-item.subclass-feat { border-left-color: #8060a0; }
+.feature-item.species-feat { border-left-color: #4080a0; }
+.feature-item.feat { border-left-color: var(--gold3); }
+
+.feature-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.feature-header:hover { background: rgba(200,168,75,0.04); }
+
+.feature-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.tag-rage { background: rgba(139,26,26,0.4); color: #ff8080; }
+.tag-barb { background: rgba(80,60,30,0.6); color: var(--gold3); }
+.tag-path { background: rgba(80,40,100,0.4); color: #c090e0; }
+.tag-species { background: rgba(20,60,80,0.5); color: #80c0e0; }
+.tag-feat { background: rgba(100,80,20,0.5); color: var(--gold2); }
+
+.feature-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--parch);
+  flex: 1;
+}
+
+.feature-toggle {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+
+.feature-toggle.open { transform: rotate(180deg); }
+
+.feature-body {
+  padding: 0 10px 8px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  display: none;
+  border-top: 1px solid rgba(58,48,32,0.4);
+}
+
+.feature-body.open {
+  display: block;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.feature-body strong { color: var(--parch2); font-style: italic; }
+.feature-body em { color: var(--gold3); font-style: normal; }
+
+/* ── SPECIES TRAITS ── */
+.corvian-box {
+  background: linear-gradient(135deg, rgba(20,30,40,0.8) 0%, rgba(10,15,20,0.9) 100%);
+  border: 1px solid #2a4060;
+  border-radius: var(--radius);
+  padding: 10px;
+}
+
+.corvian-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.9rem;
+  color: #80c0e0;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.trait-list { display: flex; flex-direction: column; gap: 4px; }
+
+.trait-row {
+  display: flex;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.trait-row:hover { background: rgba(128,192,224,0.05); }
+
+.trait-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #80c0e0;
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.trait-desc { color: var(--text-dim); }
+
+/* ── EQUIPMENT ── */
+.equipment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.equip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: var(--parch2);
+  border-left: 2px solid var(--border);
+  transition: border-left-color 0.15s;
+}
+
+.equip-item:hover { border-left-color: var(--gold3); background: rgba(200,168,75,0.03); }
+
+.equip-item.magic {
+  border-left-color: #a060e0;
+  background: rgba(100,40,160,0.08);
+}
+
+.equip-icon { font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; }
+.equip-text { flex: 1; line-height: 1.4; }
+.equip-detail { font-size: 0.7rem; color: var(--text-dim); font-style: italic; }
+
+/* ── ATTUNEMENT ── */
+.attunement-slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(100,40,160,0.1);
+  border: 1px solid rgba(140,80,200,0.3);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  color: #c090f0;
+}
+
+.attunement-gem { font-size: 1rem; }
+
+/* ── COINS ── */
+.coins-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.coin-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.coin-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold2);
+}
+
+.coin-type {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── DEATH SAVES ── */
+.death-saves {
+  display: flex;
+  gap: 16px;
+}
+
+.save-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.save-group-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.save-group-label.success { color: var(--prof-col); }
+.save-group-label.fail { color: var(--blood2); }
+
+.save-pips { display: flex; gap: 4px; }
+
+.save-pip {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-pip.success-pip { border-color: var(--prof-col); }
+.save-pip.success-pip.on { background: var(--prof-col); }
+.save-pip.fail-pip { border-color: var(--blood); }
+.save-pip.fail-pip.on { background: var(--blood2); }
+
+/* ── NOTES / BACKSTORY ── */
+.notes-area {
+  width: 100%;
+  min-height: 80px;
+  background: var(--ash2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  color: var(--parch2);
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.82rem;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.2s;
+}
+
+.notes-area:focus { border-color: var(--border2); }
+.notes-area::placeholder { color: var(--text-dim); font-style: italic; }
+
+/* ── PRIMAL KNOWLEDGE ── */
+.primal-box {
+  background: rgba(139,26,26,0.08);
+  border: 1px solid rgba(139,26,26,0.25);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ── TABS (Mobile navigation) ── */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.tab-btn:hover { color: var(--parch2); }
+.tab-btn.active { color: var(--gold2); border-bottom-color: var(--gold); }
+
+/* Tab sections */
+.tab-section { display: none; }
+.tab-section.active { display: contents; }
+
+/* ── MAIN LAYOUT GRID ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 10px;
+}
+
+.left-col { display: flex; flex-direction: column; gap: 8px; }
+.right-col { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── PROF BONUS ── */
+.prof-bonus-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ash2);
+  border: 1px solid rgba(122,184,122,0.4);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.prof-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--prof-col);
+}
+
+.prof-lbl {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ── RESPONSIVE — iPad Air 11 (820px) ── */
+@media (max-width: 820px) {
+  .sheet { padding: 10px; }
+  .char-name { font-size: 1.4rem; }
+  .main-grid { grid-template-columns: 200px 1fr; }
+}
+
+@media (max-width: 640px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .abilities-row { grid-template-columns: repeat(3, 1fr); }
+  .saves-skills-grid { grid-template-columns: 1fr; }
+  .combat-row { grid-template-columns: repeat(2, 1fr); }
+  .equipment-grid { grid-template-columns: 1fr; }
+  .header-band { flex-wrap: wrap; }
+  .header-stats { width: 100%; justify-content: space-between; }
+}
+
+/* ── EDITABLE INLINE ── */
+[contenteditable] {
+  outline: none;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+[contenteditable]:focus { background: rgba(200,168,75,0.07); }
+[contenteditable]:hover { background: rgba(200,168,75,0.03); }
+
+/* ── DIVIDER ── */
+.ornate-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+.ornate-divider::before,
+.ornate-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+}
+.ornate-divider span {
+  font-size: 0.6rem;
+  color: var(--gold3);
+}
+
+
+/* ── ADVANTAGE BADGE ── */
+.adv-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.42rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f0d060;
+  background: rgba(200,160,20,0.18);
+  border: 1px solid rgba(200,160,20,0.45);
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin-left: 4px;
+  vertical-align: middle;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── TEMP HP ── */
+.temp-hp-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.temp-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.temp-input {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #a0c8f0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #406080;
+  width: 50px;
+  text-align: center;
+  outline: none;
+}
+
+/* ── PAGE LOAD ANIMATION ── */
+.sheet > * {
+  animation: fadeUp 0.4s ease both;
+}
+.sheet > *:nth-child(1) { animation-delay: 0.05s; }
+.sheet > *:nth-child(2) { animation-delay: 0.10s; }
+.sheet > *:nth-child(3) { animation-delay: 0.15s; }
+.sheet > *:nth-child(4) { animation-delay: 0.20s; }
+.sheet > *:nth-child(5) { animation-delay: 0.25s; }
+.sheet > *:nth-child(6) { animation-delay: 0.30s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── INSPIRATION ── */
+.inspiration-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: var(--ash2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+  justify-content: center;
+}
+
+.inspiration-btn.on {
+  background: rgba(200,168,75,0.2);
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(200,168,75,0.3);
+}
+
+.inspiration-icon { font-size: 1.1rem; }
+.inspiration-lbl { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+
+</style>
+</head>
+<body>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('core')">Core</button>
+  <button class="tab-btn" onclick="showTab('combat')">Combat</button>
+  <button class="tab-btn" onclick="showTab('features')">Features</button>
+  <button class="tab-btn" onclick="showTab('species')">Species</button>
+  <button class="tab-btn" onclick="showTab('equipment')">Equipment</button>
+  <button class="tab-btn" onclick="showTab('backstory')">Backstory</button>
+</div>
+
+<div class="sheet">
+
+  <!-- ══ HEADER ══ -->
+  <div class="header-band">
+    <div class="char-name-block">
+      <div class="char-name">Icarus</div>
+      <div class="char-meta">
+        <div class="meta-item">
+          <span class="meta-label">Class & Level</span>
+          <span class="meta-value">Barbarian 7</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Subclass</span>
+          <span class="meta-value">Path of the Berserker</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Species</span>
+          <span class="meta-value">Corvian</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Background</span>
+          <span class="meta-value">Prisoner</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Alignment</span>
+          <span class="meta-value">Chaotic Neutral</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-stats">
+      <!-- HP -->
+      <div class="stat-bubble hp">
+        <span class="bubble-label">Hit Points</span>
+        <div class="hp-inputs">
+          <input type="number" class="hp-current" id="hpCurrent" value="78" min="0" max="78"/>
+          <span class="hp-sep">/</span>
+          <span class="hp-max-txt">78</span>
+        </div>
+        <div class="temp-hp-row">
+          <span class="temp-label">Temp</span>
+          <input type="number" class="temp-input" id="hpTemp" value="" placeholder="—" min="0"/>
+        </div>
+        <span class="bubble-sub">7d12 + 21</span>
+      </div>
+
+      <!-- Rage -->
+      <div class="rage-tracker">
+        <span class="rage-label">⚔ Rage</span>
+        <div class="rage-pips" id="ragePips">
+          <div class="rage-pip" onclick="toggleRage(0)" title="Rage use 1"></div>
+          <div class="rage-pip" onclick="toggleRage(1)" title="Rage use 2"></div>
+          <div class="rage-pip" onclick="toggleRage(2)" title="Rage use 3"></div>
+          <div class="rage-pip" onclick="toggleRage(3)" title="Rage use 4"></div>
+        </div>
+        <span class="rage-dmg">+2 dmg · Resist B/P/S</span>
+      </div>
+
+      <!-- AC -->
+      <div class="stat-bubble ac">
+        <span class="bubble-label">Armor Class</span>
+        <span class="bubble-main ac-val">16</span>
+        <span class="bubble-sub">Unarmored</span>
+      </div>
+
+      <!-- Initiative -->
+      <div class="stat-bubble">
+        <span class="bubble-label">Initiative</span>
+        <span class="bubble-main init-val">+6</span>
+        <span class="bubble-sub">+Prof (Alert)</span>
+        <span class="adv-badge" title="Advantage from Feral Instinct (Lv7)">▲ ADV</span>
+      </div>
+
+      <!-- Death Saves -->
+      <div class="stat-bubble" style="gap:6px;">
+        <span class="bubble-label">Death Saves</span>
+        <div class="death-saves">
+          <div class="save-group">
+            <span class="save-group-label success">Successes</span>
+            <div class="save-pips">
+              <div class="save-pip success-pip" onclick="toggleSave(this)"></div>
+              <div class="save-pip success-pip" onclick="toggleSave(this)"></div>
+              <div class="save-pip success-pip" onclick="toggleSave(this)"></div>
+            </div>
+          </div>
+          <div class="save-group">
+            <span class="save-group-label fail">Failures</span>
+            <div class="save-pips">
+              <div class="save-pip fail-pip" onclick="toggleSave(this)"></div>
+              <div class="save-pip fail-pip" onclick="toggleSave(this)"></div>
+              <div class="save-pip fail-pip" onclick="toggleSave(this)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inspiration -->
+      <div class="inspiration-btn" id="inspirationBtn" onclick="toggleInspiration()" title="Heroic Inspiration">
+        <span class="inspiration-icon">✦</span>
+        <span class="inspiration-lbl">Inspiration</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CORE TAB ══ -->
+  <div class="tab-section active" id="tab-core">
+    <div class="main-grid">
+
+      <!-- LEFT: Abilities + Prof + Saves -->
+      <div class="left-col">
+
+        <!-- Proficiency Bonus -->
+        <div class="prof-bonus-display">
+          <span class="prof-val">+3</span>
+          <span class="prof-lbl">Proficiency Bonus</span>
+        </div>
+
+        <!-- Ability Scores -->
+        <div class="panel">
+          <div class="panel-header">Ability Scores</div>
+          <div class="panel-body">
+            <div class="abilities-row" style="grid-template-columns: repeat(3,1fr); gap:5px;">
+              <div class="ability-card has-prof">
+                <span class="ability-name">STR</span>
+                <span class="ability-mod">+5</span>
+                <div class="ability-score">20</div>
+              </div>
+              <div class="ability-card">
+                <span class="ability-name">DEX</span>
+                <span class="ability-mod">+3</span>
+                <div class="ability-score">16</div>
+              </div>
+              <div class="ability-card has-prof">
+                <span class="ability-name">CON</span>
+                <span class="ability-mod">+3</span>
+                <div class="ability-score">16</div>
+              </div>
+              <div class="ability-card">
+                <span class="ability-name">INT</span>
+                <span class="ability-mod">+0</span>
+                <div class="ability-score">10</div>
+              </div>
+              <div class="ability-card">
+                <span class="ability-name">WIS</span>
+                <span class="ability-mod">+0</span>
+                <div class="ability-score">10</div>
+              </div>
+              <div class="ability-card">
+                <span class="ability-name">CHA</span>
+                <span class="ability-mod">+1</span>
+                <div class="ability-score">12</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saving Throws -->
+        <div class="panel">
+          <div class="panel-header">Saving Throws</div>
+          <div class="panel-body" style="padding:6px 8px;">
+            <div class="skill-list">
+              <div class="skill-row">
+                <div class="skill-pip prof"></div>
+                <span class="skill-bonus pos">+8</span>
+                <span class="skill-name">Strength</span>
+                <span class="adv-badge" style="border-color:rgba(200,80,80,0.5);background:rgba(180,40,40,0.15);color:#ff9090;" title="Advantage on STR saves while Raging">▲ RAGE</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-pip"></div>
+                <span class="skill-bonus">+3</span>
+                <span class="skill-name">Dexterity</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-pip prof"></div>
+                <span class="skill-bonus pos">+7</span>
+                <span class="skill-name">Constitution</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-pip"></div>
+                <span class="skill-bonus">+0</span>
+                <span class="skill-name">Intelligence</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-pip"></div>
+                <span class="skill-bonus">+0</span>
+                <span class="skill-name">Wisdom</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-pip"></div>
+                <span class="skill-bonus">+1</span>
+                <span class="skill-name">Charisma</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Combat Stats -->
+        <div class="panel">
+          <div class="panel-header">Combat</div>
+          <div class="panel-body">
+            <div class="combat-row" style="grid-template-columns: repeat(2,1fr);">
+              <div class="combat-stat">
+                <span class="combat-val" style="color:#8ab87a;">35 ft</span>
+                <span class="combat-lbl">Speed</span>
+              </div>
+              <div class="combat-stat">
+                <span class="combat-val" style="color:#a0a0ff;">7d12</span>
+                <span class="combat-lbl">Hit Dice</span>
+              </div>
+              <div class="combat-stat">
+                <span class="combat-val" style="color:#f0c060;">+3</span>
+                <span class="combat-lbl">Prof Bonus</span>
+              </div>
+              <div class="combat-stat">
+                <span class="combat-val" style="color:#c08060;">M</span>
+                <span class="combat-lbl">Size</span>
+              </div>
+            </div>
+            <div style="margin-top:8px;">
+              <div class="primal-box">
+                <strong style="color:#e0a020;font-family:'Cinzel',serif;font-size:0.65rem;">Passive Perception</strong><br/>
+                <span style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--parch);">13</span>
+                <span style="font-size:0.7rem;color:var(--text-dim);"> (Wis 0 + Prof 3 via Primal Knowledge)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passive + Perception note -->
+        <div class="panel">
+          <div class="panel-header">Proficiencies</div>
+          <div class="panel-body" style="font-size:0.75rem; color:var(--text-dim); line-height:1.6;">
+            <strong style="color:var(--parch2);">Weapons:</strong> Simple & Martial<br/>
+            <strong style="color:var(--parch2);">Armor:</strong> Light, Medium, Shields<br/>
+            <strong style="color:var(--parch2);">Tools:</strong> Thieves' Tools<br/>
+            <strong style="color:var(--parch2);">Languages:</strong> Common, Aarakocra, Auran<br/>
+            <strong style="color:var(--parch2);">Weapon Mastery:</strong> Greataxe (Cleave), Handaxe (Nick) <span style="color:var(--text-dim);">· 3 total at lvl 7</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Skills -->
+      <div class="right-col">
+        <div class="panel">
+          <div class="panel-header">Skills</div>
+          <div class="panel-body" style="padding:6px 8px;">
+            <div class="saves-skills-grid">
+              <div class="skill-list">
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+3</span>
+                  <span class="skill-name">Acrobatics</span>
+                  <span class="adv-badge" style="border-color:rgba(200,80,80,0.4);background:rgba(160,30,30,0.12);color:#ff9090;" title="Acrobatics — uses STR while Raging (Primal Knowledge)">🔥 STR</span>
+                  <span class="skill-ability">dex</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Animal Handling</span>
+                  <span class="skill-ability">wis</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Arcana</span>
+                  <span class="skill-ability">int</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+5</span>
+                  <span class="skill-name">Athletics</span>
+                  <span class="skill-ability">str</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+1</span>
+                  <span class="skill-name">Deception</span>
+                  <span class="skill-ability">cha</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">History</span>
+                  <span class="skill-ability">int</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Insight</span>
+                  <span class="skill-ability">wis</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+4</span>
+                  <span class="skill-name">Intimidation</span>
+                  <span class="adv-badge" style="border-color:rgba(200,80,80,0.4);background:rgba(160,30,30,0.12);color:#ff9090;" title="Intimidation — uses STR while Raging (Primal Knowledge)">🔥 STR</span>
+                  <span class="skill-ability">cha</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Investigation</span>
+                  <span class="skill-ability">int</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Medicine</span>
+                  <span class="skill-ability">wis</span>
+                </div>
+              </div>
+              <div class="skill-list">
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Nature</span>
+                  <span class="skill-ability">int</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+3</span>
+                  <span class="skill-name">Perception</span>
+                  <span class="adv-badge" style="border-color:rgba(200,80,80,0.4);background:rgba(160,30,30,0.12);color:#ff9090;" title="Perception — uses STR while Raging (Primal Knowledge)">🔥 STR</span>
+                  <span class="skill-ability">wis</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+1</span>
+                  <span class="skill-name">Performance</span>
+                  <span class="skill-ability">cha</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+1</span>
+                  <span class="skill-name">Persuasion</span>
+                  <span class="skill-ability">cha</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+0</span>
+                  <span class="skill-name">Religion</span>
+                  <span class="skill-ability">int</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+6</span>
+                  <span class="skill-name">Sleight of Hand</span>
+                  <span class="skill-ability">dex</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+6</span>
+                  <span class="skill-name">Stealth</span>
+                  <span class="adv-badge" style="border-color:rgba(200,80,80,0.4);background:rgba(160,30,30,0.12);color:#ff9090;" title="Stealth — uses STR while Raging (Primal Knowledge)">🔥 STR</span>
+                  <span class="skill-ability">dex</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip prof"></div>
+                  <span class="skill-bonus pos">+3</span>
+                  <span class="skill-name">Survival</span>
+                  <span class="adv-badge" style="border-color:rgba(200,80,80,0.4);background:rgba(160,30,30,0.12);color:#ff9090;" title="Survival — uses STR while Raging (Primal Knowledge)">🔥 STR</span>
+                  <span class="skill-ability">wis</span>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-pip"></div>
+                  <span class="skill-bonus">+1</span>
+                  <span class="skill-name">Performance</span>
+                  <span class="skill-ability">cha</span>
+                </div>
+              </div>
+            </div>
+            <div class="ornate-divider" style="margin:8px 0 4px;"><span>◆</span></div>
+            <div style="font-size:0.68rem;color:var(--text-dim);padding:0 4px;">
+              <strong style="color:var(--rune);">Primal Knowledge (Lv3):</strong> While Raging, Perception, Intimidation, Survival checks can use STR instead of their normal ability.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COMBAT TAB ══ -->
+  <div class="tab-section" id="tab-combat">
+    <!-- Weapons -->
+    <div class="panel">
+      <div class="panel-header">Weapons & Attacks</div>
+      <div class="panel-body" style="padding:8px;">
+        <table class="weapons-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Atk Bonus</th>
+              <th>Damage</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="weapon-name">Greataxe +1</span></td>
+              <td><span class="weapon-atk">+9</span></td>
+              <td><span class="weapon-dmg">1d12+5+2</span></td>
+              <td><span class="weapon-note">Magic, Cleave mastery; +2d6 Frenzy (Rage + Reckless)</span></td>
+            </tr>
+            <tr>
+              <td><span class="weapon-name">Greataxe +1 (Raging)</span></td>
+              <td><span class="weapon-atk">+9</span></td>
+              <td><span class="weapon-dmg">1d12+7+2</span></td>
+              <td><span class="weapon-note">+2 Rage bonus to dmg; Resist B/P/S; Adv STR checks</span></td>
+            </tr>
+            <tr>
+              <td><span class="weapon-name">Handaxe</span></td>
+              <td><span class="weapon-atk">+8</span></td>
+              <td><span class="weapon-dmg">1d6+5</span></td>
+              <td><span class="weapon-note">Nick mastery · Thrown 20/60ft · Light</span></td>
+            </tr>
+            <tr>
+              <td><span class="weapon-name">Dagger</span></td>
+              <td><span class="weapon-atk">+8</span></td>
+              <td><span class="weapon-dmg">1d4+5</span></td>
+              <td><span class="weapon-note">Finesse · Thrown 20/60ft · Nick mastery</span></td>
+            </tr>
+            <tr>
+              <td><span class="weapon-name">Talon (Unarmed — Corvian)</span></td>
+              <td><span class="weapon-atk">+8</span></td>
+              <td><span class="weapon-dmg">1d4+5</span></td>
+              <td><span class="weapon-note">Corvian species trait; Slashing</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Rage details -->
+    <div class="panel">
+      <div class="panel-header">Rage — Path of the Berserker</div>
+      <div class="panel-body">
+        <div class="primal-box" style="margin-bottom:8px;">
+          <strong style="color:#ff8080;">Rage (4 uses/Long Rest)</strong> · Bonus Action to enter · Lasts until end of next turn, extended by: making an attack, forcing a saving throw, or taking a Bonus Action.<br/>
+          <span style="color:var(--text-dim);">Max duration: 10 minutes · Cannot wear Heavy Armor</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+          <div class="combat-stat" style="background:rgba(139,26,26,0.12);border-color:rgba(139,26,26,0.4);">
+            <span class="combat-val" style="color:#ff8080;">+2</span>
+            <span class="combat-lbl">Rage Damage Bonus</span>
+          </div>
+          <div class="combat-stat" style="background:rgba(139,26,26,0.12);border-color:rgba(139,26,26,0.4);">
+            <span class="combat-val" style="color:#ff8080;">4</span>
+            <span class="combat-lbl">Rages / LR</span>
+          </div>
+          <div class="combat-stat" style="background:rgba(139,26,26,0.12);border-color:rgba(139,26,26,0.4);">
+            <span class="combat-val" style="color:#ff8080;">B/P/S</span>
+            <span class="combat-lbl">Resistance</span>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px;font-size:0.78rem;color:var(--text-dim);">
+          <div><strong style="color:#c8a84b;">Strength Advantage:</strong> Advantage on Strength checks and Strength saving throws while raging.</div>
+          <div><strong style="color:#c8a84b;">No Concentration or Spells:</strong> Cannot maintain Concentration or cast spells while raging.</div>
+          <div><strong style="color:#c8a84b;">Frenzy (Lv3 Berserker):</strong> If you use Reckless Attack while Raging, deal extra damage on first hit = 2d6 (Rage Damage Bonus dice) Slashing.</div>
+          <div><strong style="color:#c8a84b;">Mindless Rage (Lv6):</strong> Immunity to Charmed and Frightened while raging. If Charmed or Frightened when entering Rage, condition ends.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reckless Attack -->
+    <div class="panel">
+      <div class="panel-header">Combat Options</div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:6px;font-size:0.8rem;">
+        <div class="primal-box">
+          <strong style="color:#e0c060;">Reckless Attack:</strong> First attack on your turn: Advantage on STR attack rolls until start of next turn. Attack rolls against you also have Advantage until start of your next turn.
+        </div>
+        <div class="primal-box">
+          <strong style="color:#e0c060;">Danger Sense (Lv2):</strong> Advantage on DEX saving throws unless you have the Incapacitated condition.
+        </div>
+        <div class="primal-box">
+          <strong style="color:#e0c060;">Feral Instinct (Lv7):</strong> Advantage on Initiative rolls.
+        </div>
+        <div class="primal-box">
+          <strong style="color:#e0c060;">Instinctive Pounce (Lv7):</strong> As part of the Bonus Action to enter Rage, move up to half your Speed (17ft).
+        </div>
+        <div class="primal-box">
+          <strong style="color:#e0c060;">Alert Feat — Initiative Swap:</strong> Immediately after rolling Initiative, swap your result with one willing ally's result. Can't swap if either has Incapacitated condition.
+        </div>
+        <div class="primal-box" style="border-color:rgba(100,150,200,0.3);background:rgba(20,40,60,0.3);">
+          <strong style="color:#80c0ff;">Paranoia (Corvian):</strong> You can't be surprised while conscious.
+        </div>
+        <div class="primal-box" style="border-color:rgba(100,150,200,0.3);background:rgba(20,40,60,0.3);">
+          <strong style="color:#80c0ff;">One Eye Open (Corvian):</strong> Fully aware while unconscious or asleep. Advantage on saves vs magical sleep.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FEATURES TAB ══ -->
+  <div class="tab-section" id="tab-features">
+    <div class="panel">
+      <div class="panel-header">Class Features — Barbarian Level 7</div>
+      <div class="panel-body" style="padding:6px 8px;">
+        <div class="features-grid">
+
+          <div class="feature-item rage-feat">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-rage">Lv1</span>
+              <span class="feature-name">Rage</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              <strong>Bonus Action.</strong> 4 uses per Long Rest. While active: +2 damage on STR attacks, Resistance to Bludgeoning/Piercing/Slashing, Advantage on STR checks and saves, cannot Concentrate or cast spells. Lasts until end of next turn; extended by attacking, forcing a save, or taking a Bonus Action. Ends early if you don Heavy Armor or become Incapacitated (or Unconscious).
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv1</span>
+              <span class="feature-name">Unarmored Defense</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              While not wearing armor, AC = 10 + DEX modifier + CON modifier. <em>Icarus: 10 + 3 + 3 = 16 AC.</em> You can use a Shield and still gain this benefit.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv1</span>
+              <span class="feature-name">Weapon Mastery (3 weapons)</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Choose 3 Simple or Martial Melee weapons to apply mastery properties. Change choices on Long Rest.<br/>
+              <strong>Greataxe — Cleave:</strong> On hit, make a free attack against a second creature within 5ft of the first, using same attack/damage rolls (no bonus damage). Only once per attack action.<br/>
+              <strong>Handaxe — Nick:</strong> When you use Light property on your turn, the extra attack from Nick doesn't require a Bonus Action.<br/>
+              <strong>Dagger — Nick:</strong> Same as above.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv2</span>
+              <span class="feature-name">Danger Sense</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Advantage on Dexterity saving throws unless you have the Incapacitated condition. <span class="adv-badge">▲ ADV on DEX saves</span>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv2</span>
+              <span class="feature-name">Reckless Attack</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              When making your first attack on your turn, choose to attack recklessly. Gain Advantage on attack rolls using Strength until the start of your next turn. Attack rolls against you also have Advantage during that time.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv3</span>
+              <span class="feature-name">Primal Knowledge</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Gain proficiency in one additional skill: <em>Perception</em> (chosen). Additionally, while Rage is active, Acrobatics, Intimidation, Perception, Stealth, or Survival checks can be made as STR checks.
+            </div>
+          </div>
+
+          <div class="feature-item subclass-feat">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-path">Lv3</span>
+              <span class="feature-name">Frenzy (Path of the Berserker)</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              If you use Reckless Attack while your Rage is active, deal extra damage to the first target you hit on your turn with a Strength-based attack. Roll a number of d6s equal to your Rage Damage bonus (+2) and add them together. <em>Icarus: +2d6 extra damage.</em> Same damage type as weapon.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv5</span>
+              <span class="feature-name">Extra Attack</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Attack twice instead of once when you take the Attack action.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv5</span>
+              <span class="feature-name">Fast Movement</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Speed increases by 10 feet while not wearing Heavy Armor. <em>Icarus: 25ft base + 10ft = 35ft.</em>
+            </div>
+          </div>
+
+          <div class="feature-item subclass-feat">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-path">Lv6</span>
+              <span class="feature-name">Mindless Rage (Path of the Berserker)</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Immunity to the Charmed and Frightened conditions while your Rage is active. If Charmed or Frightened when you enter Rage, the condition ends on you.
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv7</span>
+              <span class="feature-name">Feral Instinct</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              Your instincts are honed: Advantage on Initiative rolls. <em>Stacks with Alert feat's +Prof bonus.</em> <span class="adv-badge">▲ ADV on Init</span>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-barb">Lv7</span>
+              <span class="feature-name">Instinctive Pounce</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              As part of the Bonus Action you take to enter your Rage, you can move up to half your Speed. <em>Icarus: move up to 17ft as part of Rage entry.</em>
+            </div>
+          </div>
+
+          <div class="feature-item feat">
+            <div class="feature-header" onclick="toggleFeature(this)">
+              <span class="feature-tag tag-feat">Feat</span>
+              <span class="feature-name">Alert — Initiative Proficiency + Swap</span>
+              <span class="feature-toggle">▾</span>
+            </div>
+            <div class="feature-body">
+              <strong>Initiative Proficiency:</strong> Add your Proficiency Bonus (+3) to Initiative rolls. <em>Icarus total Initiative: +3(DEX) +3(Prof) = +6, with Advantage from Feral Instinct.</em><br/><br/>
+              <strong>Initiative Swap:</strong> Immediately after rolling Initiative, swap your result with one willing ally's. Cannot swap if either has Incapacitated condition.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SPECIES TAB ══ -->
+  <div class="tab-section" id="tab-species">
+    <div class="panel">
+      <div class="panel-header">Corvian Species Traits</div>
+      <div class="panel-body">
+        <div class="corvian-box" style="margin-bottom:10px;">
+          <div class="corvian-title">◈ CORVIAN</div>
+          <div style="font-size:0.78rem;color:var(--text-dim);font-style:italic;line-height:1.6;margin-bottom:8px;">
+            Avian humanoids descended from aarakocra, twisted by curse and exile. They bear fused wing-arms like short cloaks, hooked vulture-like beaks, razor talons, and black feathers with blue or purple sheen. Medium size, 6–7ft tall, 100–140 lbs. Their society prizes memory, secrets, and grudges above all else.
+          </div>
+        </div>
+
+        <div class="trait-list">
+          <div class="trait-row">
+            <span class="trait-name">Ability Score Increase</span>
+            <span class="trait-desc">Intelligence +2; Charisma or Dexterity +1 (chosen: Dexterity).</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Size</span>
+            <span class="trait-desc">Medium. 6–7 ft tall, 100–140 lbs. Spindly frame.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Speed</span>
+            <span class="trait-desc">Base walking speed 25ft (25ft base + 10ft Fast Movement = 35ft for Icarus).</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Clumsy Flight</span>
+            <span class="trait-desc">Flying speed 15ft. At end of turn, fall if still aloft and can't stop the fall. Cannot use while wearing Medium or Heavy armor.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Darkvision</span>
+            <span class="trait-desc">60ft. Dim light as bright light; darkness as dim light. Can't discern color in darkness.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Memory for Lore</span>
+            <span class="trait-desc">Proficiency in the History skill.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Never Forget, Never Forgive</span>
+            <span class="trait-desc">Photographic memory — cannot forget anything for at least 1 year. Always recognize faces/voices heard in past year (even disguised, DC Arcana to detect). If a creature dealt damage to you, you remember their face/voice forever and no magic can erase it. Advantage on checks to uncover disguises of creatures you've seen before. <span class="adv-badge" style="border-color:rgba(60,120,200,0.5);background:rgba(30,60,160,0.15);color:#80b0ff;">▲ ADV</span></span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Paranoia</span>
+            <span class="trait-desc">You cannot be surprised while conscious.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">One Eye Open</span>
+            <span class="trait-desc">Fully aware of surroundings while unconscious or asleep — even when put to sleep by magic. Advantage on saves to resist magical sleep. <span class="adv-badge" style="border-color:rgba(60,120,200,0.5);background:rgba(30,60,160,0.15);color:#80b0ff;">▲ ADV</span></span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Talons</span>
+            <span class="trait-desc">Proficient unarmed strikes. Deal 1d4 Slashing damage on a hit.</span>
+          </div>
+          <div class="trait-row">
+            <span class="trait-name">Languages</span>
+            <span class="trait-desc">Common, Aarakocra, Auran.</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="section-title">Attuned Magic Item — Revenant Ring</div>
+          <div class="primal-box" style="border-color:rgba(160,80,200,0.5);background:rgba(80,20,120,0.15);">
+            <div style="font-family:'Cinzel',serif;font-size:0.82rem;font-weight:700;color:#c090f0;margin-bottom:6px;">💜 Revenant Ring <span style="font-size:0.6rem;color:var(--text-dim);font-weight:400;">Ring, Rare · Requires Attunement</span></div>
+            <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.75;">
+              <div>◆ <strong style="color:#d0a0ff;">+1 bonus to Constitution saving throws</strong><br>
+              <span style="font-size:0.7rem;font-style:italic;">Icarus CON save: +3 (mod) +3 (prof) +1 (ring) = <strong style="color:#c090f0;">+7</strong></span></div>
+              <div style="margin-top:5px;">◆ <strong style="color:#d0a0ff;">Cannot suffer more than one death saving throw failure per round.</strong></div>
+              <div style="margin-top:5px;">◆ <strong style="color:#d0a0ff;">Refuse Death (1×/Long Rest):</strong> When you would die, make a DC 15 Constitution saving throw. On a success, you drop to 1 Hit Point and immediately fall under the effects of the <em>Feign Death</em> spell.</div>
+            </div>
+            <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+              <span style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);">Refuse Death</span>
+              <div id="refuseDeathPip" onclick="toggleRefuseDeath()" style="width:22px;height:22px;border-radius:50%;border:2px solid #8040c0;background:var(--ash2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.7rem;transition:all 0.2s;" title="Click to mark used"></div>
+              <span style="font-size:0.68rem;color:var(--text-dim);">1 / Long Rest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- ══ EQUIPMENT TAB ══ -->
+  <div class="tab-section" id="tab-equipment">
+    <div class="panel">
+      <div class="panel-header">Equipment & Inventory</div>
+      <div class="panel-body">
+        <div class="section-title">Attuned Magic Items</div>
+        <div class="attunement-slot" style="margin-bottom:8px;flex-direction:column;align-items:flex-start;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="attunement-gem">💜</span>
+            <div>
+              <div style="font-family:'Cinzel',serif;font-size:0.82rem;font-weight:700;color:#c090f0;">Revenant Ring &nbsp;<span style="font-size:0.58rem;color:var(--text-dim);font-weight:400;">Ring, Rare · Attunement</span></div>
+            </div>
+          </div>
+          <div style="font-size:0.76rem;color:var(--text-dim);line-height:1.65;padding-left:4px;">
+            ◆ <strong style="color:#d0a0ff;">+1 to Constitution saving throws</strong> <span style="color:var(--text-dim);font-style:italic;">(CON save total: +7)</span><br/>
+            ◆ <strong style="color:#d0a0ff;">Max 1 death save failure per round</strong><br/>
+            ◆ <strong style="color:#d0a0ff;">Refuse Death (1×/LR):</strong> When you would die → DC 15 CON save → on success: drop to 1 HP + <em>Feign Death</em> spell effect immediately.
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding-left:4px;">
+            <span style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);">Refuse Death used:</span>
+            <div id="refuseDeathPip2" onclick="toggleRefuseDeath()" style="width:18px;height:18px;border-radius:50%;border:2px solid #8040c0;background:var(--ash2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.6rem;transition:all 0.2s;" title="Click when used"></div>
+            <span style="font-size:0.68rem;color:var(--text-dim);">1 / Long Rest</span>
+          </div>
+        </div>
+        <div class="attunement-slot" style="margin-bottom:8px;flex-direction:column;align-items:flex-start;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;width:100%;">
+            <span class="attunement-gem">💜</span>
+            <div style="flex:1;">
+              <div style="font-family:'Cinzel',serif;font-size:0.82rem;font-weight:700;color:#c090f0;">Revenant Ring <span style="font-size:0.58rem;color:var(--text-dim);font-weight:400;">Ring, Rare · Attunement</span></div>
+            </div>
+          </div>
+          <div style="font-size:0.76rem;color:var(--text-dim);line-height:1.7;padding-left:4px;">
+            ◆ <strong style="color:#d0a0ff;">+1 to Constitution saving throws</strong> <em style="color:var(--text-dim);">(total CON save: +7)</em><br>
+            ◆ <strong style="color:#d0a0ff;">Max 1 death saving throw failure per round</strong><br>
+            ◆ <strong style="color:#d0a0ff;">Refuse Death (1×/LR):</strong> When you would die → DC 15 CON save → on success: 1 HP + <em>Feign Death</em> immediately.
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding-left:4px;">
+            <span style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);">Refuse Death used:</span>
+            <div id="refuseDeathPip2" onclick="toggleRefuseDeath()" style="width:20px;height:20px;border-radius:50%;border:2px solid #8040c0;background:var(--ash2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.65rem;transition:all 0.2s;" title="Click when used"></div>
+            <span style="font-size:0.68rem;color:var(--text-dim);">1 / Long Rest</span>
+          </div>
+        </div>
+
+        <div class="section-title">Weapons</div>
+        <div class="equipment-grid" style="margin-bottom:10px;">
+          <div class="equip-item magic">
+            <span class="equip-icon">⚔️</span>
+            <div class="equip-text">
+              Greataxe +1
+              <div class="equip-detail">Magic weapon · 1d12+5+2 · Cleave</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">🪓</span>
+            <div class="equip-text">
+              Handaxes (×4)
+              <div class="equip-detail">1d6+5 · Light · Thrown 20/60 · Nick</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">🗡️</span>
+            <div class="equip-text">
+              Daggers
+              <div class="equip-detail">1d4+5 · Finesse · Thrown 20/60</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Gear & Tools</div>
+        <div class="equipment-grid" style="margin-bottom:10px;">
+          <div class="equip-item">
+            <span class="equip-icon">🔧</span>
+            <div class="equip-text">
+              Thieves' Tools
+              <div class="equip-detail">Tool proficiency</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">🦾</span>
+            <div class="equip-text">
+              Crowbar
+              <div class="equip-detail">Grants Advantage on STR checks to pry</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">👜</span>
+            <div class="equip-text">
+              Pouches (×2)
+              <div class="equip-detail">Carry capacity</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">👘</span>
+            <div class="equip-text">
+              Traveler's Clothes
+              <div class="equip-detail">Common wear</div>
+            </div>
+          </div>
+          <div class="equip-item">
+            <span class="equip-icon">🎒</span>
+            <div class="equip-text">
+              Explorer's Pack
+              <div class="equip-detail">Bedroll, rations ×10, torches, rope, waterskin, tinderbox</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Coins</div>
+        <div class="coins-row">
+          <div class="coin-slot">
+            <span class="coin-val">—</span>
+            <span class="coin-type">CP</span>
+          </div>
+          <div class="coin-slot">
+            <span class="coin-val">—</span>
+            <span class="coin-type">SP</span>
+          </div>
+          <div class="coin-slot">
+            <span class="coin-val">—</span>
+            <span class="coin-type">EP</span>
+          </div>
+          <div class="coin-slot">
+            <span class="coin-val" id="gpVal" contenteditable="true">31</span>
+            <span class="coin-type">GP</span>
+          </div>
+          <div class="coin-slot">
+            <span class="coin-val">—</span>
+            <span class="coin-type">PP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BACKSTORY TAB ══ -->
+  <div class="tab-section" id="tab-backstory">
+    <div class="panel">
+      <div class="panel-header">Appearance</div>
+      <div class="panel-body">
+        <textarea class="notes-area" rows="3" placeholder="Describe Icarus's appearance...">Tall, spindly corvian — black feathers with a subtle purple sheen, hooked vulture-like beak, crooked spine. Wing-arms fold like tattered cloaks. Eyes: entirely black. Missing several feathers along the left arm from an old wound. Wears minimal clothing beneath a battered greataxe harness. The Revenent Ring sits on one talon-tipped finger, faintly pulsing.</textarea>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">Backstory & Personality</div>
+      <div class="panel-body">
+        <textarea class="notes-area" rows="6" placeholder="Icarus's story...">A corvian who was imprisoned — whether for a crime committed or a crime fabricated, Icarus keeps their own counsel. Trust, as all corvians know, is a weakness. Icarus remembers every face that put them in chains, every voice that testified against them, every name scratched into the ledger of grudges kept with photographic precision. They don't speak of what they plan to do about it. They never forget. They never forgive. The Revenent Ring was found in the prison — or taken from someone who no longer needed it.</textarea>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">Notes</div>
+      <div class="panel-body">
+        <textarea class="notes-area" rows="5" placeholder="Session notes, reminders, current conditions...">Current conditions: None
+Active effects: —
+Short rests taken: 0 / Long rest taken: No
+
+REMINDER: Feral Instinct = Advantage on initiative. Alert feat = +3 to initiative. Total: roll 2d20 take higher, add +6.
+REMINDER: Primal Knowledge — during Rage, Perception / Intimidation / Survival can use STR modifier.</textarea>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .sheet -->
+
+<script>
+// ── TAB SYSTEM ──
+function showTab(name) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById('tab-' + name);
+  if (sec) sec.classList.add('active');
+  const btn = [...document.querySelectorAll('.tab-btn')].find(b => b.textContent.toLowerCase().includes(name.toLowerCase()));
+  if (btn) btn.classList.add('active');
+}
+
+// ── FEATURE TOGGLE ──
+function toggleFeature(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.feature-toggle');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+// ── RAGE PIPS ──
+function toggleRage(idx) {
+  const pip = document.querySelectorAll('.rage-pip')[idx];
+  pip.classList.toggle('used');
+  saveState();
+}
+
+// ── DEATH SAVES ──
+function toggleSave(el) {
+  el.classList.toggle('on');
+  saveState();
+}
+
+// ── INSPIRATION ──
+function toggleInspiration() {
+  document.getElementById('inspirationBtn').classList.toggle('on');
+  saveState();
+}
+
+// ── PERSIST STATE (localStorage) ──
+function saveState() {
+  const state = {
+    hp: document.getElementById('hpCurrent').value,
+    tempHp: document.getElementById('hpTemp').value,
+    rage: [...document.querySelectorAll('.rage-pip')].map(p => p.classList.contains('used')),
+    inspiration: document.getElementById('inspirationBtn').classList.contains('on'),
+    deathSaves: [...document.querySelectorAll('.save-pip')].map(p => p.classList.contains('on')),
+    gp: document.getElementById('gpVal').textContent,
+    notes: [...document.querySelectorAll('.notes-area')].map(t => t.value),
+    refuseDeath: document.getElementById('refuseDeathPip') && document.getElementById('refuseDeathPip').classList.contains('used'),
+  };
+  try { localStorage.setItem('icarus_sheet', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('icarus_sheet');
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    if (state.hp !== undefined) document.getElementById('hpCurrent').value = state.hp;
+    if (state.tempHp !== undefined) document.getElementById('hpTemp').value = state.tempHp;
+    if (state.rage) {
+      const pips = document.querySelectorAll('.rage-pip');
+      state.rage.forEach((used, i) => { if (pips[i] && used) pips[i].classList.add('used'); });
+    }
+    if (state.inspiration) document.getElementById('inspirationBtn').classList.add('on');
+    if (state.deathSaves) {
+      const saves = document.querySelectorAll('.save-pip');
+      state.deathSaves.forEach((on, i) => { if (saves[i] && on) saves[i].classList.add('on'); });
+    }
+    if (state.gp) document.getElementById('gpVal').textContent = state.gp;
+    if (state.notes) {
+      const areas = document.querySelectorAll('.notes-area');
+      state.notes.forEach((v, i) => { if (areas[i]) areas[i].value = v; });
+    }
+    if (state.refuseDeath) { setTimeout(toggleRefuseDeath, 100); }
+    if (state.refuseDeath) { setTimeout(toggleRefuseDeath, 50); }
+  } catch(e) {}
+}
+
+// ── REFUSE DEATH TRACKER ──
+function toggleRefuseDeath() {
+  const used = !document.getElementById('refuseDeathPip').classList.contains('used');
+  ['refuseDeathPip','refuseDeathPip2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (used) {
+      el.classList.add('used');
+      el.style.background = '#8040c0';
+      el.style.borderColor = '#c090f0';
+      el.textContent = '✕';
+      el.style.color = '#fff';
+    } else {
+      el.classList.remove('used');
+      el.style.background = 'var(--ash2)';
+      el.style.borderColor = '#8040c0';
+      el.textContent = '';
+    }
+  });
+  saveState();
+}
+
+
+// ── REFUSE DEATH TRACKER (Revenant Ring) ──
+function toggleRefuseDeath() {
+  const pip1 = document.getElementById('refuseDeathPip');
+  const pip2 = document.getElementById('refuseDeathPip2');
+  const isUsed = pip1 ? pip1.classList.contains('used') : (pip2 ? pip2.classList.contains('used') : false);
+  const nowUsed = !isUsed;
+  [pip1, pip2].forEach(el => {
+    if (!el) return;
+    if (nowUsed) {
+      el.classList.add('used');
+      el.style.background = '#8040c0';
+      el.style.borderColor = '#c090f0';
+      el.innerHTML = '✕';
+      el.style.color = '#fff';
+    } else {
+      el.classList.remove('used');
+      el.style.background = 'var(--ash2)';
+      el.style.borderColor = '#8040c0';
+      el.innerHTML = '';
+    }
+  });
+  saveState();
+}
+
+// Auto-save on change
+document.getElementById('hpCurrent').addEventListener('input', saveState);
+document.getElementById('hpTemp').addEventListener('input', saveState);
+document.querySelectorAll('.notes-area').forEach(t => t.addEventListener('input', saveState));
+document.getElementById('gpVal').addEventListener('input', saveState);
+
+loadState();
+
+// ── HP COLOUR ──
+function updateHpColor() {
+  const current = parseInt(document.getElementById('hpCurrent').value) || 0;
+  const max = 78;
+  const pct = current / max;
+  const inp = document.getElementById('hpCurrent');
+  if (pct > 0.5) inp.style.color = '#c42a2a';
+  else if (pct > 0.25) inp.style.color = '#e06000';
+  else inp.style.color = '#ff4040';
+}
+document.getElementById('hpCurrent').addEventListener('input', updateHpColor);
+updateHpColor();
+</script>
+</body>
+</html>
